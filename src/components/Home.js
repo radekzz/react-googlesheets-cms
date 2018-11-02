@@ -35,7 +35,28 @@ class Home extends Component {
                             return (
                                 <div className="recipe-home" id={`recipe-${i}`} key={obj.Title}>
                                     {ReactHtmlParser(obj.Content)}
+                                    <p>{obj.Lang}</p>
                                     <p>{obj.Category}</p>
+                                    <p>
+                                        <ul>
+                                            {obj.Ingredients.split(",").map((o, i) => (
+                                                <li key={i}>
+                                                    {o}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </p>
+                                    <p>
+                                        <ul>
+                                            {obj.IngredientsAmount.split(",").map((o, i) => (
+                                                <li key={i}>
+                                                    {o}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </p>
+                                    <p>{obj.Time}min</p>
+                                    <p>{obj.Portions} portions</p>
                                     <img alt={obj.Title} src={obj.Image} />
                                 </div>
                             )
