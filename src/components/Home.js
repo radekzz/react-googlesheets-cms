@@ -1,68 +1,59 @@
 ﻿import React, { Component } from 'react';
-import config from '../config';
-import Tabletop from 'tabletop';
 import ReactHtmlParser from 'react-html-parser';
+import Header from './Header';
+import Footer from './Footer';
 
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            googledata: []
         }
     }
 
     componentDidMount() {
-        Tabletop.init({
-            key: config.spreadsheetId,
-            callback: googleData => {
-                this.setState({
-                    data: googleData
-                })
-            },
-            simpleSheet: true
-        })
+        console.log("Home component mounted");
     }
 
     render() {
-        console.log('updated state --->', this.state);
-        const { data } = this.state
+        const googledataInit = this.props.googledata;
+        const googledata = googledataInit.slice(0, -1);
+        console.log(googledata); //Data from google, array of objects without first line
         return (
             <div className="App">
+                <Header />
                 <div id="recipe-list">
                     {
-                        data.map((obj, i) => {
+                        googledata.map((recipe, i) => {
                             return (
-                                <div className="recipe-home" id={`recipe-${i}`} key={obj.Title}>
-                                    {ReactHtmlParser(obj.Content)}
-                                    <p>{obj.Lang}</p>
-                                    <p>{obj.Category}</p>
-                                    <p>
-                                        <ul>
-                                            {obj.Ingredients.split(",").map((o, i) => (
-                                                <li key={i}>
-                                                    {o}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </p>
-                                    <p>
-                                        <ul>
-                                            {obj.IngredientsAmount.split(",").map((o, i) => (
-                                                <li key={i}>
-                                                    {o}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </p>
-                                    <p>{obj.Time}min</p>
-                                    <p>{obj.Portions} portions</p>
-                                    <img alt={obj.Title} src={obj.Image} />
+                                <div className="recipe-home" id={`recipe-${i}`} key={recipe.Title}>
+                                    {ReactHtmlParser(recipe.Content)}
+                                    <p>{recipe.Lang}</p>
+                                    <p>{recipe.Category}</p>
+                                    <ul>
+                                        {recipe.Ingredients.split(",").map((o, i) => (
+                                            <li key={i}>
+                                                {o}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <ul>
+                                        {recipe.IngredientsAmount.split(",").map((o, i) => (
+                                            <li key={i}>
+                                                {o}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <p>{recipe.Time}min</p>
+                                    <p>{recipe.Portions} portions</p>
+                                    <img alt={recipe.Title} src={recipe.Image} />
                                 </div>
                             )
                         })
                     }
                 </div>
+                <Footer />
             </div>
         );
     }
