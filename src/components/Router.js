@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import NotFound from "./NotFound";
+import Add from "./Add/Add";
 import Home from "./Home";
 import config from "../googleapi/config";
 import { loadSomething } from "../googleapi/datacontact";
@@ -144,6 +145,7 @@ export default class Router extends Component {
               />
             )}
           />
+          <Route path="/add" render={props => <Add {...props} />} />
           <Route component={NotFound} />
         </Switch>
       </HashRouter>

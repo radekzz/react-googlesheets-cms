@@ -17,12 +17,13 @@ class Home extends Component {
     }
 
     render() {
+        console.log(this.props);
         const googledataInit = this.props.googledata;
         const googledata = googledataInit.slice(0, -1);
         console.log(googledata); //Data from google, array of objects without first line
         return (
             <div className="App">
-                <Header />
+                <Header />asdas
                 <div id="recipe-list">
                     {
                         googledata.map((recipe, i) => {

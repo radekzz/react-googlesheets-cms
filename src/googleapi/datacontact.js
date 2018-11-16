@@ -1,6 +1,7 @@
 import config from './config';
 
 export function loadSomething(callback) {
+  console.log("prdel");
   window.gapi.client.load("sheets", "v4", () => {
     window.gapi.client.sheets.spreadsheets.values
       .get({
@@ -11,7 +12,7 @@ export function loadSomething(callback) {
       .then(
         response => {
           const data = response.result.values;
-          console.log(response.result.values); //Data from google, array of arrays
+          console.log(data); //Data from google, array of arrays
           const googledata = data.map(gdata => ({
             ID: gdata[0],
             Lang: gdata[1],
