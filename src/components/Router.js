@@ -75,7 +75,7 @@ export default class Router extends Component {
     window.gapi.auth2
       .getAuthInstance()
       .signIn()
-      .then(function () {
+      .then(function() {
         console.log(window.gapi.auth2.currentUser.get().getId());
       });
   };
@@ -84,7 +84,7 @@ export default class Router extends Component {
     window.gapi.auth2
       .getAuthInstance()
       .disconnect()
-      .then(function () {
+      .then(function() {
         console.log("You have been signed out");
       });
 
@@ -142,6 +142,7 @@ export default class Router extends Component {
             render={() => (
               <Home
                 googledata={this.state.googledata}
+                handleSignInClick={this.handleSignInClick}
               />
             )}
           />
